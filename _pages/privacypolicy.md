@@ -8,14 +8,14 @@ include_in_header: false
 April 10 2025
 
 # Privacy Policy
-Thank you for using Moody! Your privacy is important to us. This Privacy Policy explains how we collect, use, and protect your information when you use our app.
+Thank you for using GymLog! Your privacy is important to us. This Privacy Policy explains how we collect, use, and protect your information when you use our app.
 
 <br>
 
 ## 1. Information We Collect
-Moody is designed to help you track your moods and emotions privately and securely. We may collect the following types of information:
+GymLog is designed to help you track your gym sessions and workouts privately and securely. We may collect the following types of information:
 
-- Mood Entries: Moods, tags, notes, and other data you voluntarily enter into the app.
+- Gym Entries: Workouts, tags, notes, and other data you voluntarily enter into the app.
 - Usage Data: Anonymous data such as session length, app crashes, or feature usage, to improve performance and user experience.
 We do not collect any personally identifiable information unless explicitly stated (e.g., if you create an account in future versions).
 
@@ -24,8 +24,8 @@ We do not collect any personally identifiable information unless explicitly stat
 ## 2. How We Use Your Information
 We use the information you provide to:
 
-- Help you log and track your moods.
-- Generate insights and mood trends.
+- Help you log and track your gym sessions.
+- Generate insights and gym trends.
 - Improve app performance and user experience.
 Your data is stored locally on your device unless you enable cloud backup or synchronization features (if applicable).
 
@@ -33,7 +33,7 @@ Your data is stored locally on your device unless you enable cloud backup or syn
 <br>
 
 ## 3. Third-Party Services
-Moody may use trusted third-party tools for analytics or crash reporting. These services may collect limited technical data, such as device type or operating system version, but no personal mood data is shared.
+GymLog may use trusted third-party tools for analytics or crash reporting. These services may collect limited technical data, such as device type or operating system version, but no personal workout data is shared.
 
 We may update this section if new services are added in future versions.
 
@@ -49,7 +49,7 @@ You are responsible for protecting your device and any backups you make.
 ## 5. Your Rights
 You have full control over your data. You can:
 
-- View or edit your mood entries.
+- View or edit your gym entries.
 - Delete your data at any time.
 - Uninstall the app to remove all local data.
 

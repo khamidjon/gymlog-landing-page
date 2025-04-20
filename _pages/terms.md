@@ -8,15 +8,15 @@ include_in_header: false
 April 10 2025
 
 # Terms of Use
-These Terms of Use ("Terms") govern your use of the Moody app ("App"). By accessing or using the App, you agree to be bound by these Terms.
+These Terms of Use ("Terms") govern your use of the GymLog app ("App"). By accessing or using the App, you agree to be bound by these Terms.
 
 <br>
 ## 1. Acceptance of Terms
-By downloading, installing, or using Moody, you agree to comply with and be legally bound by these Terms. If you do not agree with these Terms, please refrain from using the App.
+By downloading, installing, or using GymLog, you agree to comply with and be legally bound by these Terms. If you do not agree with these Terms, please refrain from using the App.
 
 <br>
 ## 2. Use of the App
-Moody is provided for personal use only. You may not use the App for any commercial, illegal, or unauthorized purpose. By using the App, you agree to:
+GymLog is provided for personal use only. You may not use the App for any commercial, illegal, or unauthorized purpose. By using the App, you agree to:
 
 - Use the App in accordance with all applicable local, state, and national laws.
 - Not interfere with or disrupt the operation of the App or servers.
@@ -24,7 +24,7 @@ Moody is provided for personal use only. You may not use the App for any commerc
 
 <br>
 ## 3. Intellectual Property
-All content and features within the App, including but not limited to logos, graphics, text, and software, are the property of [Your Company Name] or its licensors. You may not use, reproduce, modify, or distribute any content from the App without explicit permission.
+All content and features within the App, including but not limited to logos, graphics, text, and software, are the property of [Summer Apps](https://www.summerapps.com) or its licensors. You may not use, reproduce, modify, or distribute any content from the App without explicit permission.
 
 <br>
 ## 4. Account Creation and Security
@@ -36,9 +36,9 @@ Your privacy is important to us. Please refer to our Privacy Policy for details 
 
 <br>
 ## 6. Disclaimers and Limitations of Liability
-Moody is provided “as is” and without any warranty of any kind. We make no representations or warranties that the App will meet your requirements or be error-free.
+GymLog is provided “as is” and without any warranty of any kind. We make no representations or warranties that the App will meet your requirements or be error-free.
 
-In no event shall [Your Company Name] be liable for any indirect, incidental, or consequential damages arising out of your use of the App.
+In no event shall [Summer Apps](https://www.summerapps.com) be liable for any indirect, incidental, or consequential damages arising out of your use of the App.
 
 <br>
 ## 7. Termination
