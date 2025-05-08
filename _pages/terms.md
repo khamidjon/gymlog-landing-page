@@ -5,7 +5,7 @@ include_in_header: false
 ---
 
 **Last updated**  
-April 10 2025
+May 09 2025
 
 # Terms of Use
 These Terms of Use ("Terms") govern your use of the GymLog app ("App"). By accessing or using the App, you agree to be bound by these Terms.
