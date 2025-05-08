@@ -49,11 +49,26 @@ We may suspend or terminate your access to the App at any time, without notice, 
 We reserve the right to modify these Terms at any time. When we do, the updated version will be available within the App or on our website. Your continued use of the App after such modifications constitutes acceptance of the new Terms.
 
 <br>
-## 9. Governing Law and Dispute Resolution
+## 9. Subscriptions
+Gymlog offers auto-renewing monthly and yearly subscription plans that unlock premium features within the app.
+
+- Payment will be charged to your Apple ID account at the confirmation of purchase.
+- Subscriptions renew automatically unless canceled at least 24 hours before the end of the current billing period.
+- You can manage or cancel your subscription at any time by going to your Apple ID Account Settings on the App Store.
+- If a free trial is offered, any unused portion will be forfeited once you purchase a subscription.
+- No refunds are provided for unused time, but you may be eligible for a refund via Apple. Learn more at:
+https://support.apple.com/en-us/HT204084
+
+<br>
+## 10. Changes to Subscription Terms
+We may update our subscription pricing or features. If we do, we’ll notify you in advance via the app or email. Continued use of the app after changes implies your acceptance.
+
+<br>
+## 11. Governing Law and Dispute Resolution
 These Terms shall be governed by the laws of [Insert Jurisdiction], and any disputes shall be resolved through [Arbitration/Mediation] in [Location], unless prohibited by applicable law.
 
 <br>
-## 10. Contact Information
+## 12. Contact Information
 If you have any questions about these Terms, please contact us at:
-📧 [admin@summerapps.com]
+📧 admin@summerapps.com
 <br>

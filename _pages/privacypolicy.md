@@ -53,9 +53,19 @@ You have full control over your data. You can:
 - Delete your data at any time.
 - Uninstall the app to remove all local data.
 
-## 6. Changes to This Policy
+## 6. Subscription & Payment Information
+Gymlog uses Apple’s In-App Purchase system to process subscription payments. We do not store or have access to your payment details.
+
+We collect minimal data related to your subscription status to enable premium features and provide support (e.g., subscription type, expiration date).
+
+If you subscribe to Gymlog, Apple may share limited purchase metadata with us (e.g., country, purchase status) in compliance with their privacy rules.
+
+For more about Apple’s data policies, please see:
+https://www.apple.com/legal/privacy/
+
+## 7. Changes to This Policy
 We may update this Privacy Policy from time to time. We’ll notify you of any major changes through the app or app store listing.
 
-## 7. Contact Us
+## 8. Contact Us
 If you have any questions about this Privacy Policy, feel free to contact us at:
 📧 [admin@summerapps.com]
