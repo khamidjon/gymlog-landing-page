@@ -8,7 +8,7 @@ include_in_header: false
 May 21 2026
 
 # Privacy Policy for CalFit: Food & Calorie Tracker
-CalFit (formerly GymLog) is developed and operated by **Thunder LLC**. Your privacy is important to us. This Privacy Policy explains how we collect, use, and protect your information when you use CalFit.
+CalFit (formerly GymLog) is developed and operated by **Thunder LLC (Summer Apps)**. Your privacy is important to us. This Privacy Policy explains how we collect, use, and protect your information when you use CalFit.
 
 <br>
 
@@ -83,5 +83,5 @@ We may update this Privacy Policy from time to time. We will notify you of any m
 ## 8. Contact Us
 If you have any questions about this Privacy Policy, feel free to contact us at:
 
-Thunder LLC
+Thunder LLC (Summer Apps)
 Email: admin@summerapps.com

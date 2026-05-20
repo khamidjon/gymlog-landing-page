@@ -8,7 +8,7 @@ include_in_header: false
 May 21 2026
 
 # Terms of Use
-These Terms of Use ("Terms") govern your use of the CalFit app ("App"), developed and operated by **Thunder LLC**. By accessing or using the App, you agree to be bound by these Terms.
+These Terms of Use ("Terms") govern your use of the CalFit app ("App"), developed and operated by **Thunder LLC (Summer Apps)**. By accessing or using the App, you agree to be bound by these Terms.
 
 <br>
 ## 1. Acceptance of Terms
@@ -24,7 +24,7 @@ CalFit is provided for personal use only. You may not use the App for any commer
 
 <br>
 ## 3. Intellectual Property
-All content and features within the App, including but not limited to logos, graphics, text, and software, are the property of Thunder LLC or its licensors. You may not use, reproduce, modify, or distribute any content from the App without explicit permission.
+All content and features within the App, including but not limited to logos, graphics, text, and software, are the property of Thunder LLC (Summer Apps) or its licensors. You may not use, reproduce, modify, or distribute any content from the App without explicit permission.
 
 <br>
 ## 4. Account Creation and Security
@@ -40,7 +40,7 @@ CalFit is provided "as is" and without any warranty of any kind. We make no repr
 
 CalFit provides AI-powered calorie estimates for informational purposes only. These estimates should not be treated as medical or nutritional advice.
 
-In no event shall Thunder LLC be liable for any indirect, incidental, or consequential damages arising out of your use of the App.
+In no event shall Thunder LLC (Summer Apps) be liable for any indirect, incidental, or consequential damages arising out of your use of the App.
 
 <br>
 ## 7. Termination
@@ -74,6 +74,6 @@ These Terms shall be governed by the laws of the Republic of Uzbekistan, and any
 ## 12. Contact Information
 If you have any questions about these Terms, please contact us at:
 
-Thunder LLC
+Thunder LLC (Summer Apps)
 Email: admin@summerapps.com
 <br>
