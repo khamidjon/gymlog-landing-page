@@ -8,6 +8,13 @@ include_in_header: true
 
 <br>
 
+# **2.0**
+- Rebranded from GymLog to CalFit
+- AI-powered food scanning and calorie estimation
+- Complete calorie and macro tracking
+- New dark theme design
+- Supabase cloud sync with account support
+
 # **1.0.2**
 - Added In-App Purchase monthly and yearly subscription plans
 - Updated Analytics Section
@@ -29,4 +36,3 @@ This is the first release of the app, which offers these features:
 - Use the app in several languages, which can be found in settings
 
 <br>
-
