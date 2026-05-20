@@ -4,43 +4,47 @@ title: Privacy Policy
 include_in_header: false
 ---
 
-**Last updated**  
-April 10 2025
+**Last updated**
+May 21 2026
 
-# Privacy Policy
-Thank you for using GymLog! Your privacy is important to us. This Privacy Policy explains how we collect, use, and protect your information when you use our app.
+# Privacy Policy for CalFit: Food & Calorie Tracker
+CalFit (formerly GymLog) is developed and operated by **Thunder LLC**. Your privacy is important to us. This Privacy Policy explains how we collect, use, and protect your information when you use CalFit.
 
 <br>
 
 ## 1. Information We Collect
-GymLog is designed to help you track your gym sessions and workouts privately and securely. We may collect the following types of information:
+CalFit is designed to help you track your meals, calories, and fitness goals privately and securely. We may collect the following types of information:
 
-- Gym Entries: Workouts, tags, notes, and other data you voluntarily enter into the app.
+- Food & Calorie Entries: Meals, calorie data, macros, notes, and other data you voluntarily enter into the app.
+- Account Information: If you create an account, we collect your email address and authentication credentials.
 - Usage Data: Anonymous data such as session length, app crashes, or feature usage, to improve performance and user experience.
-We do not collect any personally identifiable information unless explicitly stated (e.g., if you create an account in future versions).
 
 <br>
 
 ## 2. How We Use Your Information
 We use the information you provide to:
 
-- Help you log and track your gym sessions.
-- Generate insights and gym trends.
+- Help you log and track your meals and calorie intake.
+- Generate insights and nutrition trends.
+- Provide AI-powered food recognition and calorie estimation.
 - Improve app performance and user experience.
-Your data is stored locally on your device unless you enable cloud backup or synchronization features (if applicable).
 
+Your data is stored locally on your device and may be synced to our secure cloud servers if you create an account.
 
 <br>
 
 ## 3. Third-Party Services
-GymLog may use trusted third-party tools for analytics or crash reporting. These services may collect limited technical data, such as device type or operating system version, but no personal workout data is shared.
+CalFit may use trusted third-party tools for analytics, crash reporting, and AI processing. These services may collect limited technical data, such as device type or operating system version, but no personal nutrition data is shared without your consent.
 
-We may update this section if new services are added in future versions.
+Third-party services we use include:
+- Firebase (analytics and crash reporting)
+- RevenueCat (subscription management)
+- OpenAI (AI-powered food recognition)
 
 <br>
 
 ## 4. Data Security
-We take data security seriously. All data is stored securely on your device or, if cloud sync is enabled, securely transmitted using industry-standard encryption.
+We take data security seriously. All data is stored securely on your device or transmitted using industry-standard encryption when synced to our servers.
 
 You are responsible for protecting your device and any backups you make.
 
@@ -49,23 +53,35 @@ You are responsible for protecting your device and any backups you make.
 ## 5. Your Rights
 You have full control over your data. You can:
 
-- View or edit your gym entries.
+- View or edit your entries.
 - Delete your data at any time.
+- Delete your account and all associated data.
 - Uninstall the app to remove all local data.
 
+<br>
+
 ## 6. Subscription & Payment Information
-Gymlog uses Apple’s In-App Purchase system to process subscription payments. We do not store or have access to your payment details.
+CalFit offers premium features through subscription plans. Payments are processed through:
 
-We collect minimal data related to your subscription status to enable premium features and provide support (e.g., subscription type, expiration date).
+- **Apple's In-App Purchase** system on iOS devices.
+- **Google Play Billing** system on Android devices.
+- **Third-party payment providers** (such as Payme) in supported regions.
 
-If you subscribe to Gymlog, Apple may share limited purchase metadata with us (e.g., country, purchase status) in compliance with their privacy rules.
+We do not store or have access to your credit card or payment details. We collect minimal data related to your subscription status to enable premium features and provide support (e.g., subscription type, expiration date).
 
-For more about Apple’s data policies, please see:
-https://www.apple.com/legal/privacy/
+For more about platform data policies, please see:
+- Apple: [https://www.apple.com/legal/privacy/](https://www.apple.com/legal/privacy/)
+- Google: [https://policies.google.com/privacy](https://policies.google.com/privacy)
+
+<br>
 
 ## 7. Changes to This Policy
-We may update this Privacy Policy from time to time. We’ll notify you of any major changes through the app or app store listing.
+We may update this Privacy Policy from time to time. We will notify you of any major changes through the app or app store listing.
+
+<br>
 
 ## 8. Contact Us
 If you have any questions about this Privacy Policy, feel free to contact us at:
-📧 [admin@summerapps.com]
+
+Thunder LLC
+Email: admin@summerapps.com
