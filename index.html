@@ -652,6 +652,18 @@ renderFooter();
   }
 })();
 
+/* ══ analytics ══════════════════════════════════════════════════════
+   Cloudflare Web Analytics: cookieless, no consent banner needed, gives
+   country + referrer breakdowns. Loaded last and async so it can never
+   block or break the page — the site works fine with it blocked. */
+(function(){
+  var s = document.createElement('script');
+  s.type = 'module'; s.defer = true;
+  s.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+  s.setAttribute('data-cf-beacon', JSON.stringify({ token: '9411bcd96ebc410a8a1f59fe15e9e4fc' }));
+  document.body.appendChild(s);
+})();
+
 /* Preview hook: __preview('iab'|'web', 'ru', 'android') */
 window.__preview = function(s, l, o){
   location.replace(location.pathname + '?state=' + (s || (inIAB ? 'iab' : 'web')) +
