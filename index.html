@@ -454,22 +454,20 @@ var REF_MAP = [
 function clean(v){ v = (v || '').toLowerCase(); return C.srcPattern.test(v) ? v : ''; }
 
 /* Two levels, so channels AND individual creatives can be compared:
-     src   WHERE it came from  — ig, tiktok, yt, tg, meta_traffic…
-     post  WHICH creative      — reel_pancakes, story_0815…
+     ?src=   WHERE it came from  — ig, tiktok, yt, tg, meta_traffic…
+     ?post=  WHICH creative      — reel_pancakes, story_0815…  (?ad= is an alias)
+   e.g. /?src=ig&post=reel_pancakes
 
-   Prefer the PATH form  /go/<src>/<post>  over  /?src=…&post=…
-   Both work, but only the path form is visible in analytics: Cloudflare Web
-   Analytics has a Path dimension and no query-string dimension, so every
-   query-only link collapses into a single "/" row. `_redirects` rewrites
-   /go/* to this page with a 200, so the pretty path stays in the address bar
-   and is what the beacon reports. */
-var seg = location.pathname.replace(/^\/go\/?/i, '').split('/').filter(Boolean);
-var src  = clean(param('src')) || clean(seg[0]) || (function(){
+   Note: both levels reach App Store Connect (ct) and Play Console (utm), which
+   is where installs are attributed. Cloudflare Web Analytics has no
+   query-string dimension, so it reports all of these as one "/" row — use the
+   store consoles for per-creative numbers. */
+var src  = clean(param('src')) || (function(){
   var ref = document.referrer || '';
   for (var i = 0; i < REF_MAP.length; i++) if (REF_MAP[i][0].test(ref)) return REF_MAP[i][1];
   return 'direct';
 })();
-var post = clean(param('post')) || clean(param('ad')) || clean(seg[1]);
+var post = clean(param('post')) || clean(param('ad'));
 
 /* Apple gives exactly one free-form field (ct), so the two levels are joined
    into it and capped — Apple truncates long campaign tokens. Google Play takes
