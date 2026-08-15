@@ -16,14 +16,19 @@
      ══════════════════════════════════════════════════════════════════════ -->
 <script>
 window.CONFIG = {
-  ios: {
-    // ct= surfaces this traffic as a campaign in App Store Connect → Analytics.
-    url: 'https://apps.apple.com/app/id6744866487?ct=ig_bio&mt=8',
-    schemeUrl: 'itms-apps://apps.apple.com/app/id6744866487?ct=ig_bio'
-  },
-  android: {
-    url: 'https://play.google.com/store/apps/details?id=com.summerapps.gymlog&referrer=utm_source%3Dinstagram%26utm_medium%3Dbio',
-    schemeUrl: 'market://details?id=com.summerapps.gymlog'
+  appleId: '6744866487',
+  androidPkg: 'com.summerapps.gymlog',
+
+  // Traffic sources. `?src=` (or the referrer) picks one; it becomes `ct=` for
+  // App Store Connect → Analytics and `utm_source=` for Play Console, so both
+  // consoles break installs down by platform on their own.
+  // Allowlisted on purpose — a raw query param must never reach a store URL.
+  sources: ['ig','ig_story','threads','tiktok','yt','tg','direct'],
+
+  // Country → language. Everything not listed falls back to English.
+  geo: {
+    uz: ['UZ'],
+    ru: ['RU','KZ','KG','TJ','TM','BY','AM','AZ','MD','GE']
   },
 
   // true = tap tries the app scheme / intent:// first, then falls back to the
@@ -414,11 +419,41 @@ var os    = param('os')    || (isIOS ? 'ios' : isAndro ? 'android' : 'other');
 var inIAB = param('state') ? param('state') === 'iab' : isIAB;
 var stored = '';
 try { stored = localStorage.getItem('calfit_lang') || ''; } catch(e){}
-var lang = (param('lang') || stored || navigator.language || 'en').slice(0,2).toLowerCase();
+var browserLang = (navigator.language || 'en').slice(0,2).toLowerCase();
+var pinned = param('lang') || stored;   // explicit choice — geo must never override it
+var lang = (pinned || browserLang || 'en').slice(0,2).toLowerCase();
 if (!STR[lang]) lang = 'en';
 if (param('frame') === '1') document.body.className = 'framed';
 
 var T = STR[lang], C = CONFIG;
+
+/* ══ traffic source ═════════════════════════════════════════════════
+   `?src=` wins; otherwise infer from the referrer so untagged links still
+   attribute. Allowlisted — a raw query param must never reach a store URL. */
+var REF_MAP = [
+  [/instagram\./i, 'ig'], [/threads\./i, 'threads'], [/tiktok\./i, 'tiktok'],
+  [/youtube\.|youtu\.be/i, 'yt'], [/t\.me|telegram\./i, 'tg']
+];
+var src = (function(){
+  var s = param('src');
+  if (s && C.sources.indexOf(s) !== -1) return s;
+  var ref = document.referrer || '';
+  for (var i = 0; i < REF_MAP.length; i++) if (REF_MAP[i][0].test(ref)) return REF_MAP[i][1];
+  return 'direct';
+})();
+
+/* Store URLs, built per source so both consoles can attribute installs. */
+var STORE = {
+  ios: {
+    url: 'https://apps.apple.com/app/id' + C.appleId + '?ct=' + src + '&mt=8',
+    schemeUrl: 'itms-apps://apps.apple.com/app/id' + C.appleId + '?ct=' + src
+  },
+  android: {
+    url: 'https://play.google.com/store/apps/details?id=' + C.androidPkg +
+         '&referrer=' + encodeURIComponent('utm_source=' + src + '&utm_medium=social&utm_campaign=bio'),
+    schemeUrl: 'market://details?id=' + C.androidPkg
+  }
+};
 
 /* ══ render ═════════════════════════════════════════════════════════ */
 document.documentElement.lang = lang;
@@ -463,11 +498,12 @@ document.getElementById('soc-foot').innerHTML = socialHTML();
 /* ratings + reviews (real App Store data — see CONFIG.rating) */
 var STAR = '<svg viewBox="0 0 12 12"><path d="M6 .6l1.7 3.45 3.8.55-2.75 2.68.65 3.79L6 9.28 2.6 11.07l.65-3.79L.5 4.6l3.8-.55z"/></svg>';
 function stars5(){ return STAR + STAR + STAR + STAR + STAR; }
+function renderReviews(){
 document.getElementById('ratings').innerHTML =
   '<svg class="r-badge" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 12.54c-.03-2.5 2.04-3.7 2.13-3.76-1.16-1.7-2.97-1.93-3.61-1.96-1.54-.16-3 .9-3.78.9-.78 0-1.98-.88-3.26-.86-1.68.03-3.22.98-4.08 2.48-1.74 3.02-.44 7.5 1.25 9.95.83 1.2 1.82 2.55 3.12 2.5 1.25-.05 1.72-.8 3.23-.8 1.5 0 1.93.8 3.25.78 1.35-.02 2.2-1.22 3.02-2.43.95-1.39 1.34-2.74 1.36-2.81-.03-.01-2.61-1-2.63-3.99zM14.55 5.2c.69-.84 1.15-2 1.02-3.16-.99.04-2.2.66-2.9 1.5-.64.74-1.2 1.93-1.05 3.07 1.1.09 2.24-.57 2.93-1.41z"/></svg>' +
   '<span class="r-col"><span class="r-score">' + C.rating.score + '<span>/5</span></span>' +
   '<span class="rstars">' + stars5() + '</span>' +
-  '<a class="r-cap" href="' + C.ios.url + '" rel="noopener">' + C.rating.count + ' ' + T.ratingCap + '</a></span>';
+  '<a class="r-cap" href="' + STORE.ios.url + '" rel="noopener">' + C.rating.count + ' ' + T.ratingCap + '</a></span>';
 
 document.getElementById('reviews').innerHTML = T.reviews.map(function(r){
   return '<article class="review"><div class="head"><b>' + r.t + '</b>' +
@@ -475,6 +511,8 @@ document.getElementById('reviews').innerHTML = T.reviews.map(function(r){
     '<p>' + r.b + '</p>' +
     '<span class="who">' + r.f + ' ' + r.n + '</span></article>';
 }).join('');
+}
+renderReviews();
 
 /* feature grid (from the CalFit landing feature list) */
 var FICON = {
@@ -487,9 +525,12 @@ var FICON = {
   bell:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9.5a6 6 0 0 1 12 0c0 5 2 6.5 2 6.5H4s2-1.5 2-6.5z"/><path d="M10 19.5a2.2 2.2 0 0 0 4 0"/></svg>',
   export:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3.5M8.5 7 12 3.5 15.5 7"/><path d="M4.5 13v5.7c0 1 .8 1.8 1.8 1.8h11.4c1 0 1.8-.8 1.8-1.8V13"/></svg>'
 };
-document.getElementById('fgrid').innerHTML = T.features.map(function(f){
-  return '<div class="fcard">' + (FICON[f.i] || '') + '<b>' + f.t + '</b><p>' + f.b + '</p></div>';
-}).join('');
+function renderFeatures(){
+  document.getElementById('fgrid').innerHTML = T.features.map(function(f){
+    return '<div class="fcard">' + (FICON[f.i] || '') + '<b>' + f.t + '</b><p>' + f.b + '</p></div>';
+  }).join('');
+}
+renderFeatures();
 
 /* hero phone row */
 var mid = Math.floor(C.screens.length / 2);
@@ -509,26 +550,29 @@ var PLAY_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true">'
   + '<path fill="#FF3A44" d="M3.4 21.9 15.6 15.1 12.5 12z"/>'
   + '<path fill="#FFBC00" d="M15.6 8.9 19.9 11.3c.8.4.8 1 0 1.4l-4.3 2.4L12.5 12z"/></svg>';
 
-var pkg = (C.android.url.match(/id=([\w.]+)/) || [])[1] || '';
 function intentUrl(){
-  return 'intent://details?id=' + pkg +
+  return 'intent://details?id=' + C.androidPkg +
     '#Intent;scheme=market;package=com.android.vending;S.browser_fallback_url=' +
-    encodeURIComponent(C.android.url) + ';end';
+    encodeURIComponent(STORE.android.url) + ';end';
 }
 function badgeHTML(platform){
   var apple = platform === 'ios';
-  return '<a class="badge" data-p="' + platform + '" rel="noopener" href="' + C[platform].url + '">' +
+  return '<a class="badge" data-p="' + platform + '" rel="noopener" href="' + STORE[platform].url + '">' +
     (apple ? APPLE_SVG : PLAY_SVG) +
     '<span class="lbl"><small>' + (apple ? T.badgeApple : T.badgeGoogle) + '</small>' +
     '<b>' + (apple ? T.storeIos : T.storeAndroid) + '</b></span></a>';
 }
 var order = os === 'android' ? ['android','ios'] : ['ios','android'];
-['badges-hero','badges-bottom'].forEach(function(id){
-  document.getElementById(id).innerHTML = order.map(badgeHTML).join('');
-});
+function renderBadges(){
+  ['badges-hero','badges-bottom'].forEach(function(id){
+    document.getElementById(id).innerHTML = order.map(badgeHTML).join('');
+  });
+  wireBadges();
+}
+function wireBadges(){
 [].forEach.call(document.querySelectorAll('.badge'), function(el){
   el.addEventListener('click', function(e){
-    var platform = el.getAttribute('data-p'), cfg = C[platform];
+    var platform = el.getAttribute('data-p'), cfg = STORE[platform];
     if (inIAB){
       var box = document.getElementById('iab');
       box.classList.add('armed');
@@ -546,16 +590,67 @@ var order = os === 'android' ? ['android','ios'] : ['ios','android'];
     location.href = deep;
   });
 });
+}
+renderBadges();
 
 if (inIAB) document.getElementById('iab').hidden = false;
 
 /* footer links + copy */
-var fl = [];
-if (C.links.privacy) fl.push('<a href="' + C.links.privacy + '">' + T.privacy + '</a>');
-if (C.links.terms)   fl.push('<a href="' + C.links.terms + '">' + T.terms + '</a>');
-if (C.social.email)  fl.push('<a href="mailto:' + C.social.email + '">' + C.social.email + '</a>');
-document.getElementById('foot-links').innerHTML = fl.join('');
-document.getElementById('copy').textContent = T.copy;
+function renderFooter(){
+  var fl = [];
+  if (C.links.privacy) fl.push('<a href="' + C.links.privacy + '">' + T.privacy + '</a>');
+  if (C.links.terms)   fl.push('<a href="' + C.links.terms + '">' + T.terms + '</a>');
+  if (C.social.email)  fl.push('<a href="mailto:' + C.social.email + '">' + C.social.email + '</a>');
+  document.getElementById('foot-links').innerHTML = fl.join('');
+  document.getElementById('copy').textContent = T.copy;
+}
+renderFooter();
+
+/* ══ geo refinement ═════════════════════════════════════════════════
+   Runs ONLY when the browser said plain English and the visitor hasn't pinned
+   a language. Many phones in Uzbekistan are set to English while the user
+   would rather read Uzbek or Russian — that's the case this covers.
+
+   Deliberately not in the critical path: the page has already rendered from
+   navigator.language. This just re-labels the text if the country disagrees.
+   Same-origin, edge-served, and fails open on any error or timeout. */
+(function refineByGeo(){
+  if (pinned) return;                       // explicit choice wins, always
+  if (browserLang !== 'en') return;         // browser was specific — trust it
+  if (!window.fetch || !window.AbortController) return;
+
+  var cached = null;
+  try { cached = JSON.parse(localStorage.getItem('calfit_geo') || 'null'); } catch(e){}
+  if (cached && cached.t && Date.now() - cached.t < 7 * 24 * 3600 * 1000) return apply(cached.c);
+
+  var ctl = new AbortController();
+  var timer = setTimeout(function(){ ctl.abort(); }, 1500);
+  fetch('/api/geo', { signal: ctl.signal })
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(d){
+      clearTimeout(timer);
+      if (!d || !d.country) return;
+      try { localStorage.setItem('calfit_geo', JSON.stringify({ c: d.country, t: Date.now() })); } catch(e){}
+      apply(d.country);
+    })
+    .catch(function(){ clearTimeout(timer); });   // fail open — keep English
+
+  function apply(country){
+    var want = C.geo.uz.indexOf(country) !== -1 ? 'uz'
+             : C.geo.ru.indexOf(country) !== -1 ? 'ru' : 'en';
+    if (want === lang || !STR[want]) return;
+    lang = want; T = STR[want];
+    document.documentElement.lang = want;
+    [].forEach.call(document.querySelectorAll('[data-t]'), function(el){
+      el.textContent = T[el.getAttribute('data-t')] || '';
+    });
+    renderReviews(); renderFeatures(); renderBadges(); renderFooter();
+    var on = document.querySelector('.langs button.on');
+    if (on) on.classList.remove('on');
+    var next = document.querySelector('.langs button[data-l="' + want + '"]');
+    if (next) next.classList.add('on');
+  }
+})();
 
 /* Preview hook: __preview('iab'|'web', 'ru', 'android') */
 window.__preview = function(s, l, o){

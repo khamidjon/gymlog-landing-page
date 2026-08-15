@@ -125,6 +125,7 @@ sass:
 # Exclude these files from your production _site
 exclude:
   - LICENSE
+  - functions   # Cloudflare Pages Functions — must stay out of _site
   - README.md
   - CNAME
 
