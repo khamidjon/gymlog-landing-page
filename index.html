@@ -19,6 +19,19 @@ window.CONFIG = {
   appleId: '6744866487',
   androidPkg: 'com.summerapps.gymlog',
 
+  // Apple provider token. Apple's own campaign-link docs say: "Ensure your
+  // campaign includes both a provider token and a campaign token" — a ct= with
+  // no pt= is not the documented form, and campaigns may simply never appear
+  // under Analytics → Sources → Campaigns.
+  //
+  // To find it: App Store Connect → Analytics → Acquisition → Campaign links,
+  // generate any campaign link, and read the pt= value out of the URL it gives
+  // you. It is the same number for every campaign on the account.
+  //
+  // Left empty the links behave exactly as they did before (ct= only), so this
+  // is safe to ship unset — but set it before trusting the numbers.
+  appleProviderToken: '',
+
   // Traffic source. `?src=` (or the referrer) sets it; it becomes `ct=` for
   // App Store Connect → Analytics and `utm_source=` for Play Console, so both
   // consoles break installs down by source on their own.
@@ -469,24 +482,59 @@ var src  = clean(param('src')) || (function(){
 })();
 var post = clean(param('post')) || clean(param('ad'));
 
-/* Apple gives exactly one free-form field (ct), so the two levels are joined
-   into it and capped — Apple truncates long campaign tokens. Google Play takes
-   a full referrer string, so each level keeps its own UTM dimension. */
-var ct = (post ? src + '_' + post : src).slice(0, 40);
+/* Apple gives exactly one free-form field (ct), so the two levels are PACKED
+   into it rather than blind-sliced: the channel is kept whole (it is the
+   dimension you always want) and the creative takes whatever room is left, cut
+   back to an underscore. A long name then degrades into a shorter readable one
+   instead of a mangled fragment like `ig_reel_panc` — which would otherwise
+   show up as its own campaign row in App Store Connect and never reconcile
+   with anything.
+
+   30, not 40: Apple documents the campaign token as "up to 30 alphanumeric
+   characters and spaces" plus a punctuation set that includes `_`.
+   https://developer.apple.com/help/app-store-connect-analytics/acquisition/campaign-links/
+
+   With src <= 24 and post <= 24 (the srcPattern limits) this only engages on
+   longer names; ig / ig_reel_pancakes / tiktok_ugc_v3 are untouched. */
+var CT_MAX = 30;
+function packCt(channel, creative){
+  channel = channel.slice(0, CT_MAX);
+  if (!creative) return channel;
+  var room = CT_MAX - channel.length - 1;          // 1 for the separator
+  if (room < 1) return channel;                    // no space for a creative
+  if (creative.length <= room) return channel + '_' + creative;
+  var cut = creative.slice(0, room);
+  var sep = cut.lastIndexOf('_');
+  if (sep > 0) cut = cut.slice(0, sep);            // land on a word boundary
+  return channel + '_' + cut;
+}
+var ct = packCt(src, post);
+
+/* Google Play takes a full referrer string, so each level keeps its own UTM
+   dimension instead of being flattened the way Apple forces. */
 var playReferrer = 'utm_source=' + src +
   '&utm_medium=social' +
   '&utm_campaign=' + (post || 'bio') +
   (post ? '&utm_content=' + post : '');
+var playReferrerParam = '&referrer=' + encodeURIComponent(playReferrer);
+
+/* Every URL here carries its tracking, including the app-scheme ones. That is
+   the whole point: `handoffUrl()` prefers a scheme over https on most taps, so
+   a scheme URL without the campaign attached is a tap whose attribution is
+   thrown away at the last hop — invisible, because the visitor still lands in
+   the right place. */
+var appleParams = (C.appleProviderToken ? 'pt=' + encodeURIComponent(C.appleProviderToken) + '&' : '') +
+  'ct=' + ct + '&mt=8';
 
 var STORE = {
   ios: {
-    url: 'https://apps.apple.com/app/id' + C.appleId + '?ct=' + ct + '&mt=8',
-    schemeUrl: 'itms-apps://apps.apple.com/app/id' + C.appleId + '?ct=' + ct
+    url: 'https://apps.apple.com/app/id' + C.appleId + '?' + appleParams,
+    schemeUrl: 'itms-apps://apps.apple.com/app/id' + C.appleId + '?' + appleParams
   },
   android: {
     url: 'https://play.google.com/store/apps/details?id=' + C.androidPkg +
-         '&referrer=' + encodeURIComponent(playReferrer),
-    schemeUrl: 'market://details?id=' + C.androidPkg
+         playReferrerParam,
+    schemeUrl: 'market://details?id=' + C.androidPkg + playReferrerParam
   }
 };
 
@@ -585,8 +633,13 @@ var PLAY_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true">'
   + '<path fill="#FF3A44" d="M3.4 21.9 15.6 15.1 12.5 12z"/>'
   + '<path fill="#FFBC00" d="M15.6 8.9 19.9 11.3c.8.4.8 1 0 1.4l-4.3 2.4L12.5 12z"/></svg>';
 
+/* The referrer goes on the intent's own data URI, not just on the fallback.
+   Everything before the `#` becomes the Intent's data — i.e. the Play Store
+   receives market://details?id=…&referrer=… — while browser_fallback_url only
+   applies when the intent DOESN'T resolve. Carrying it in the fallback alone
+   meant attribution survived exactly the case where the deep link failed. */
 function intentUrl(){
-  return 'intent://details?id=' + C.androidPkg +
+  return 'intent://details?id=' + C.androidPkg + playReferrerParam +
     '#Intent;scheme=market;package=com.android.vending;S.browser_fallback_url=' +
     encodeURIComponent(STORE.android.url) + ';end';
 }
