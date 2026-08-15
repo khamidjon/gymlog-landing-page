@@ -19,11 +19,15 @@ window.CONFIG = {
   appleId: '6744866487',
   androidPkg: 'com.summerapps.gymlog',
 
-  // Traffic sources. `?src=` (or the referrer) picks one; it becomes `ct=` for
+  // Traffic source. `?src=` (or the referrer) sets it; it becomes `ct=` for
   // App Store Connect → Analytics and `utm_source=` for Play Console, so both
-  // consoles break installs down by platform on their own.
-  // Allowlisted on purpose — a raw query param must never reach a store URL.
-  sources: ['ig','ig_story','threads','tiktok','yt','tg','direct'],
+  // consoles break installs down by source on their own.
+  //
+  // Any lowercase a–z / 0–9 / underscore name up to 24 chars is accepted, so a
+  // new campaign link needs no code change — invent `?src=ramadan_promo` and it
+  // flows straight through. The pattern is the safety boundary: it is what
+  // stops a crafted query param from ever reaching a store URL.
+  srcPattern: /^[a-z0-9_]{1,24}$/,
 
   // Country → language. Everything not listed falls back to English.
   geo: {
@@ -448,8 +452,8 @@ var REF_MAP = [
   [/youtube\.|youtu\.be/i, 'yt'], [/t\.me|telegram\./i, 'tg']
 ];
 var src = (function(){
-  var s = param('src');
-  if (s && C.sources.indexOf(s) !== -1) return s;
+  var s = (param('src') || '').toLowerCase();
+  if (s && C.srcPattern.test(s)) return s;
   var ref = document.referrer || '';
   for (var i = 0; i < REF_MAP.length; i++) if (REF_MAP[i][0].test(ref)) return REF_MAP[i][1];
   return 'direct';
