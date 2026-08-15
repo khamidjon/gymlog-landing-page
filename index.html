@@ -35,6 +35,14 @@ window.CONFIG = {
   // https store link after ~1.6s. false = tap goes straight to https.
   preferScheme: true,
 
+  // Send phones arriving from a social link straight to the store, without
+  // waiting for a tap. Desktop is never redirected (it would just show the
+  // store's web page). Inside an in-app browser the only thing attempted is
+  // the break-out scheme — never a plain https navigation, which would load
+  // the store page trapped inside that same in-app browser.
+  autoRedirect: true,
+  autoRedirectDelayMs: 700,
+
   // Hero phone row, left to right. The middle one is the hero slot.
   screens: ['s4-insights.webp','s1-scanner.webp','s2-journal.webp','s3-detail.webp','s5-meals.webp'],
 
@@ -411,9 +419,14 @@ var h = new URLSearchParams(location.hash.replace(/^#/, ''));
 function param(k){ return q.get(k) || h.get(k) || ''; }
 
 var ua = navigator.userAgent || '';
-var isIAB   = /FBAN|FBAV|FB_IAB|FBIOS|Instagram/i.test(ua);
+var isInsta  = /Instagram/i.test(ua);
+var isTikTok = /BytedanceWebview|TikTok|musical_ly|Bytedance/i.test(ua);
+var isMeta   = /FBAN|FBAV|FB_IAB|FBIOS|Messenger/i.test(ua);
+var isAppish = /Line|WhatsApp|Snapchat|Telegram|GSA/i.test(ua);
+var isIAB    = isInsta || isTikTok || isMeta || isAppish;
 var isIOS   = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 var isAndro = /Android/i.test(ua);
+var isMobile = isIOS || isAndro;
 
 var os    = param('os')    || (isIOS ? 'ios' : isAndro ? 'android' : 'other');
 var inIAB = param('state') ? param('state') === 'iab' : isIAB;
@@ -555,6 +568,18 @@ function intentUrl(){
     '#Intent;scheme=market;package=com.android.vending;S.browser_fallback_url=' +
     encodeURIComponent(STORE.android.url) + ';end';
 }
+
+/* Best hand-off for this environment.
+   Instagram exposes `instagram://extbrowser`, which asks Instagram itself to
+   reopen a URL in the real browser — the one reliable way out of its webview,
+   and far better than hoping a plain store link survives. Android's in-app
+   browsers honour intent://. Everywhere else the plain app scheme is enough. */
+function handoffUrl(platform){
+  var cfg = STORE[platform];
+  if (isInsta) return 'instagram://extbrowser?url=' + encodeURIComponent(cfg.url);
+  if (platform === 'android' && inIAB) return intentUrl();
+  return cfg.schemeUrl || cfg.url;
+}
 function badgeHTML(platform){
   var apple = platform === 'ios';
   return '<a class="badge" data-p="' + platform + '" rel="noopener" href="' + STORE[platform].url + '">' +
@@ -579,8 +604,8 @@ function wireBadges(){
       box.querySelector('.iab-body').textContent = T.iabBodyArmed;
     }
     if (!C.preferScheme) return;
-    var deep = platform === 'android' ? (inIAB ? intentUrl() : cfg.schemeUrl) : cfg.schemeUrl;
-    if (!deep) return;
+    var deep = handoffUrl(platform);
+    if (!deep || deep === cfg.url) return;
     e.preventDefault();
     var gone = false;
     function mark(){ gone = true; }
@@ -594,6 +619,38 @@ function wireBadges(){
 renderBadges();
 
 if (inIAB) document.getElementById('iab').hidden = false;
+
+/* ══ auto hand-off ══════════════════════════════════════════════════
+   Phones arriving from a social link go to the store without waiting for a
+   tap. Two rules keep this from backfiring:
+
+   • Desktop never redirects — it would only show the store's web page.
+   • Inside an in-app browser we attempt ONLY the break-out scheme. A plain
+     https navigation would load the store page trapped in that same webview,
+     which is worse than staying here, so on failure the page and its
+     "Tap ••• → Open in browser" helper simply remain.
+
+   The attempt is silent and harmless: an unhandled scheme does nothing. */
+(function autoHandoff(){
+  if (!C.autoRedirect) return;
+  if (!isMobile) return;
+  if (os !== 'ios' && os !== 'android') return;
+  if (param('noredirect') === '1') return;          // escape hatch for testing
+  var fromSocial = src !== 'direct';
+  if (!inIAB && !fromSocial) return;                // organic visitors read the page
+
+  setTimeout(function(){
+    var target = inIAB ? handoffUrl(os) : STORE[os].url;
+    if (inIAB){
+      var box = document.getElementById('iab');
+      if (box){
+        box.classList.add('armed');
+        box.querySelector('.iab-body').textContent = T.iabBodyArmed;
+      }
+    }
+    location.href = target;
+  }, C.autoRedirectDelayMs || 700);
+})();
 
 /* footer links + copy */
 function renderFooter(){
