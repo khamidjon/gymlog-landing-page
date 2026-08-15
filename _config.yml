@@ -127,6 +127,7 @@ exclude:
   - LICENSE
   - functions   # Cloudflare Pages Functions — must stay out of _site
   - README.md
+  - MARKETING-LINKS.md
   - CNAME
 
 collections:
