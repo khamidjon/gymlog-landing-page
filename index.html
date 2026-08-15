@@ -451,23 +451,43 @@ var REF_MAP = [
   [/instagram\./i, 'ig'], [/threads\./i, 'threads'], [/tiktok\./i, 'tiktok'],
   [/youtube\.|youtu\.be/i, 'yt'], [/t\.me|telegram\./i, 'tg']
 ];
-var src = (function(){
-  var s = (param('src') || '').toLowerCase();
-  if (s && C.srcPattern.test(s)) return s;
+function clean(v){ v = (v || '').toLowerCase(); return C.srcPattern.test(v) ? v : ''; }
+
+/* Two levels, so channels AND individual creatives can be compared:
+     src   WHERE it came from  — ig, tiktok, yt, tg, meta_traffic…
+     post  WHICH creative      — reel_pancakes, story_0815…
+
+   Prefer the PATH form  /go/<src>/<post>  over  /?src=…&post=…
+   Both work, but only the path form is visible in analytics: Cloudflare Web
+   Analytics has a Path dimension and no query-string dimension, so every
+   query-only link collapses into a single "/" row. `_redirects` rewrites
+   /go/* to this page with a 200, so the pretty path stays in the address bar
+   and is what the beacon reports. */
+var seg = location.pathname.replace(/^\/go\/?/i, '').split('/').filter(Boolean);
+var src  = clean(param('src')) || clean(seg[0]) || (function(){
   var ref = document.referrer || '';
   for (var i = 0; i < REF_MAP.length; i++) if (REF_MAP[i][0].test(ref)) return REF_MAP[i][1];
   return 'direct';
 })();
+var post = clean(param('post')) || clean(param('ad')) || clean(seg[1]);
 
-/* Store URLs, built per source so both consoles can attribute installs. */
+/* Apple gives exactly one free-form field (ct), so the two levels are joined
+   into it and capped — Apple truncates long campaign tokens. Google Play takes
+   a full referrer string, so each level keeps its own UTM dimension. */
+var ct = (post ? src + '_' + post : src).slice(0, 40);
+var playReferrer = 'utm_source=' + src +
+  '&utm_medium=social' +
+  '&utm_campaign=' + (post || 'bio') +
+  (post ? '&utm_content=' + post : '');
+
 var STORE = {
   ios: {
-    url: 'https://apps.apple.com/app/id' + C.appleId + '?ct=' + src + '&mt=8',
-    schemeUrl: 'itms-apps://apps.apple.com/app/id' + C.appleId + '?ct=' + src
+    url: 'https://apps.apple.com/app/id' + C.appleId + '?ct=' + ct + '&mt=8',
+    schemeUrl: 'itms-apps://apps.apple.com/app/id' + C.appleId + '?ct=' + ct
   },
   android: {
     url: 'https://play.google.com/store/apps/details?id=' + C.androidPkg +
-         '&referrer=' + encodeURIComponent('utm_source=' + src + '&utm_medium=social&utm_campaign=bio'),
+         '&referrer=' + encodeURIComponent(playReferrer),
     schemeUrl: 'market://details?id=' + C.androidPkg
   }
 };

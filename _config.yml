@@ -123,6 +123,9 @@ sass:
   style: :compressed # You might prefer to minify using :compressed
 
 # Exclude these files from your production _site
+include:
+  - _redirects   # Cloudflare Pages rewrite rules
+
 exclude:
   - LICENSE
   - functions   # Cloudflare Pages Functions — must stay out of _site
