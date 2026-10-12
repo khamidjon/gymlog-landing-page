@@ -5,10 +5,10 @@ include_in_header: false
 ---
 
 **Last updated**
-May 21 2026
+October 12 2026
 
 # Terms of Use
-These Terms of Use ("Terms") govern your use of the CalFit app ("App"), developed and operated by **Thunder LLC (Summer Apps)**. By accessing or using the App, you agree to be bound by these Terms.
+These Terms of Use ("Terms") govern your use of the CalFit app ("App"), developed by **Thunder LLC (Summer Apps)**. In the Republic of Uzbekistan, the App and payments for CalFit Premium made with bank cards are provided by **"ELEVEN THREE" LLC** (the "Operator"), whose details are listed in [Section 13](#13-operator-details). By accessing or using the App, you agree to be bound by these Terms.
 
 <br>
 ## 1. Acceptance of Terms
@@ -52,15 +52,21 @@ We reserve the right to modify these Terms at any time. When we do, the updated 
 
 <br>
 ## 9. Subscriptions
-CalFit offers auto-renewing monthly and yearly subscription plans that unlock premium features within the app.
+CalFit offers monthly and yearly plans that unlock premium features within the app.
 
-- Payment will be charged to your Apple ID or Google Play account at the confirmation of purchase, or processed through supported third-party payment providers (such as Payme) in applicable regions.
+**Purchases through the App Store or Google Play**
+- Payment will be charged to your Apple ID or Google Play account at the confirmation of purchase.
 - Subscriptions renew automatically unless canceled at least 24 hours before the end of the current billing period.
-- You can manage or cancel your subscription at any time through your Apple ID Account Settings, Google Play subscriptions, or the respective payment provider.
+- You can manage or cancel your subscription at any time through your Apple ID Account Settings or Google Play subscriptions.
 - If a free trial is offered, any unused portion will be forfeited once you purchase a subscription.
 - For refunds, contact the respective platform:
   - Apple: https://support.apple.com/en-us/HT204084
   - Google Play: https://support.google.com/googleplay/answer/2479637
+
+**Bank card payments in the Republic of Uzbekistan**
+- Payments made with a bank card through Rahmat or Payme are accepted by the Operator. Prices are shown in Uzbek soums (UZS) before payment.
+- Each payment gives access to premium features for the paid period (one month or one year) from the date of payment. These payments do not renew automatically, and your card is not charged again unless you make a new payment.
+- To request a refund, contact us at [admin@summerapps.com](mailto:admin@summerapps.com) with your order details. Requests are reviewed in accordance with the legislation of the Republic of Uzbekistan, and approved refunds are returned to the card used for payment.
 
 <br>
 ## 10. Changes to Subscription Terms
@@ -74,6 +80,9 @@ These Terms shall be governed by the laws of the Republic of Uzbekistan, and any
 ## 12. Contact Information
 If you have any questions about these Terms, please contact us at:
 
-Thunder LLC (Summer Apps)
-Email: admin@summerapps.com
+Email: [admin@summerapps.com](mailto:admin@summerapps.com)
+
 <br>
+
+## 13. Operator Details
+{% include operator_details.html %}
