@@ -4,11 +4,13 @@ title: Terms of Use
 include_in_header: false
 ---
 
+{% include legal_langs.html doc='terms' %}
+
 **Last updated**
 October 12 2026
 
 # Terms of Use
-These Terms of Use ("Terms") govern your use of the CalFit app ("App"), developed by **Thunder LLC (Summer Apps)**. In the Republic of Uzbekistan, the App and payments for CalFit Premium made with bank cards are provided by **"ELEVEN THREE" LLC** (the "Operator"), whose details are listed in [Section 13](#13-operator-details). By accessing or using the App, you agree to be bound by these Terms.
+These Terms of Use ("Terms") govern your use of the CalFit app ("App"), developed by **Thunder LLC (Summer Apps)**. In the Republic of Uzbekistan, the App and payments for CalFit Premium made with bank cards are provided by **"ELEVEN THREE" LLC** (the "Operator"), whose details are listed in [Section 13](#operator-details){:target="_self"}. By accessing or using the App, you agree to be bound by these Terms.
 
 <br>
 ## 1. Acceptance of Terms
@@ -32,7 +34,7 @@ If you create an account in the App, you agree to provide accurate and complete 
 
 <br>
 ## 5. Privacy
-Your privacy is important to us. Please refer to our Privacy Policy for details on how we collect, use, and protect your data.
+Your privacy is important to us. Please refer to our [Privacy Policy](/privacypolicy/){:target="_self"} for details on how we collect, use, and protect your data.
 
 <br>
 ## 6. Disclaimers and Limitations of Liability
@@ -84,5 +86,5 @@ Email: [admin@summerapps.com](mailto:admin@summerapps.com)
 
 <br>
 
-## 13. Operator Details
+## 13. Operator Details {#operator-details}
 {% include operator_details.html %}
