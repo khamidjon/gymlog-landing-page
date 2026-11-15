@@ -10,7 +10,7 @@ include_in_header: false
 October 12 2026
 
 # Privacy Policy for CalFit: Food & Calorie Tracker
-CalFit (formerly GymLog) is developed by **Thunder LLC (Summer Apps)**. In the Republic of Uzbekistan, the CalFit service and payments for CalFit Premium made with bank cards are provided by **"ELEVEN THREE" LLC** (the "Operator"), whose details are listed in [Section 9](#operator-details){:target="_self"}. Your privacy is important to us. This Privacy Policy explains how we collect, use, and protect your information when you use CalFit.
+CalFit (formerly GymLog) is developed by **Thunder LLC (Summer Apps)**. In the Republic of Uzbekistan, the CalFit service and payments for CalFit Premium made with bank cards are provided by **Individual Entrepreneur Egamov Hamidjon Sayrambay O‘g‘li** (the "Operator"), whose details are listed in [Section 9](#operator-details){:target="_self"}. Your privacy is important to us. This Privacy Policy explains how we collect, use, and protect your information when you use CalFit.
 
 <br>
 

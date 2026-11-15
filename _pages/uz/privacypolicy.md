@@ -11,7 +11,7 @@ include_in_header: false
 2026-yil 12-oktabr
 
 # CalFit: Food & Calorie Tracker maxfiylik siyosati
-CalFit (avvalgi nomi GymLog) ilovasi **Thunder LLC (Summer Apps)** tomonidan ishlab chiqilgan. O‘zbekiston Respublikasida CalFit xizmati va CalFit Premium uchun bank kartalari orqali to‘lovlarni **«ELEVEN THREE» MChJ** (keyingi o‘rinlarda — «Operator») taqdim etadi, uning rekvizitlari [9-bo‘limda](#operator-details){:target="_self"} keltirilgan. Biz maxfiyligingizni qadrlaymiz. Ushbu Maxfiylik siyosati CalFit’dan foydalanganingizda ma’lumotlaringizni qanday to‘plashimiz, ishlatishimiz va himoya qilishimizni tushuntiradi.
+CalFit (avvalgi nomi GymLog) ilovasi **Thunder LLC (Summer Apps)** tomonidan ishlab chiqilgan. O‘zbekiston Respublikasida CalFit xizmati va CalFit Premium uchun bank kartalari orqali to‘lovlarni **YaTT Egamov Hamidjon Sayrambay O‘g‘li** (keyingi o‘rinlarda — «Operator») taqdim etadi, uning rekvizitlari [9-bo‘limda](#operator-details){:target="_self"} keltirilgan. Biz maxfiyligingizni qadrlaymiz. Ushbu Maxfiylik siyosati CalFit’dan foydalanganingizda ma’lumotlaringizni qanday to‘plashimiz, ishlatishimiz va himoya qilishimizni tushuntiradi.
 
 <br>
 
