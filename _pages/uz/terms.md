@@ -8,7 +8,7 @@ include_in_header: false
 {% include legal_langs.html doc='terms' %}
 
 **Oxirgi yangilanish**
-2026-yil 12-oktabr
+2026-yil 15-noyabr
 
 # Foydalanish shartlari
 Ushbu Foydalanish shartlari («Shartlar») **Thunder LLC (Summer Apps)** tomonidan ishlab chiqilgan CalFit ilovasidan («Ilova») foydalanish tartibini belgilaydi. O‘zbekiston Respublikasida Ilova va CalFit Premium uchun bank kartalari orqali to‘lovlarni **YaTT Egamov Hamidjon Sayrambay O‘g‘li** («Operator») taqdim etadi, uning rekvizitlari [13-bo‘limda](#operator-details){:target="_self"} keltirilgan. Ilovaga kirish yoki undan foydalanish orqali siz ushbu Shartlarga rioya qilishga rozilik bildirasiz.

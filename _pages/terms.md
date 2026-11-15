@@ -7,7 +7,7 @@ include_in_header: false
 {% include legal_langs.html doc='terms' %}
 
 **Last updated**
-October 12 2026
+November 15 2026
 
 # Terms of Use
 These Terms of Use ("Terms") govern your use of the CalFit app ("App"), developed by **Thunder LLC (Summer Apps)**. In the Republic of Uzbekistan, the App and payments for CalFit Premium made with bank cards are provided by **Individual Entrepreneur Egamov Hamidjon Sayrambay O‘g‘li** (the "Operator"), whose details are listed in [Section 13](#operator-details){:target="_self"}. By accessing or using the App, you agree to be bound by these Terms.

@@ -8,7 +8,7 @@ include_in_header: false
 {% include legal_langs.html doc='privacypolicy' %}
 
 **Последнее обновление**
-12 октября 2026 г.
+15 ноября 2026 г.
 
 # Политика конфиденциальности CalFit: Food & Calorie Tracker
 Приложение CalFit (ранее GymLog) разработано **Thunder LLC (Summer Apps)**. В Республике Узбекистан сервис CalFit и оплату CalFit Premium банковскими картами предоставляет **ИП Egamov Hamidjon Sayrambay O‘g‘li** (далее — «Оператор»), реквизиты которого указаны в [разделе 9](#operator-details){:target="_self"}. Мы ценим вашу конфиденциальность. Настоящая Политика конфиденциальности объясняет, как мы собираем, используем и защищаем ваши данные при использовании CalFit.
