@@ -90,7 +90,7 @@ CalFit предоставляет премиум-функции по подпи�
 ## 8. Контакты
 Если у вас есть вопросы по настоящей Политике конфиденциальности, свяжитесь с нами:
 
-Электронная почта: [admin@summerapps.com](mailto:admin@summerapps.com)
+Электронная почта: [egamovhamid@gmail.com](mailto:egamovhamid@gmail.com)
 
 <br>
 

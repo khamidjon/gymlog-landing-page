@@ -89,7 +89,7 @@ We may update this Privacy Policy from time to time. We will notify you of any m
 ## 8. Contact Us
 If you have any questions about this Privacy Policy, feel free to contact us at:
 
-Email: [admin@summerapps.com](mailto:admin@summerapps.com)
+Email: [egamovhamid@gmail.com](mailto:egamovhamid@gmail.com)
 
 <br>
 
